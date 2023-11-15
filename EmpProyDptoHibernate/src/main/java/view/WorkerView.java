@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+
 import library.IO;
 import models.Worker;
 
@@ -40,4 +42,24 @@ final String options =  """
 		
 		
 	}
+	
+	
+	public void show(List<Worker> workers) {
+        if (workers.isEmpty()) {
+            System.out.println("No workers found.");
+        } else {
+            System.out.println("List of Workers:");
+            for (Worker worker : workers) {
+                System.out.println(worker.getName());
+            }
+        }
+	}
+	
+		
+		
+		
+		
+		
+		
+	
 }

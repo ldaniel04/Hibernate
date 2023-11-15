@@ -14,7 +14,7 @@ public class Main {
 	
 		Persistence.generateSchema("unidad-persistencia", null);
 		
-//		em = Persistence.createEntityManagerFactory("unidad-persistencia").createEntityManager();
+		em = Persistence.createEntityManagerFactory("unidad-persistencia").createEntityManager();
 		//Need to create interface CRUD as pro has in his hibernate's project??????
 		new MainController();
 		

@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import dao.WorkerDao;
 import jakarta.persistence.EntityManager;
 import main.Main;
@@ -33,7 +35,7 @@ public class WorkerController {
 				add(Main.em);
 				break;
 			case 2:
-				//Show
+				show(Main.em);
 				break;
 			case 3:
 				//Update
@@ -60,6 +62,12 @@ public class WorkerController {
 		Worker worker = workerMenuView.create();
 		
 		workerDao.add(worker, em);
+		
+	}
+	
+	public void show(EntityManager em) {
+		List<Worker> allWorkers = workerDao.show(em);
+		workerMenuView.show(allWorkers);
 		
 	}
 
