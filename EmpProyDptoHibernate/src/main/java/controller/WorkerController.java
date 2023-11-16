@@ -68,7 +68,16 @@ public class WorkerController {
 	public void show(EntityManager em) {
 		List<Worker> allWorkers = workerDao.show(em);
 		workerMenuView.show(allWorkers);
+	}
+	
+	public void findById(Integer clave) {
+		workerDao.findById(clave);
 		
 	}
+	
+//	public void update(Integer id) {
+//		
+//		
+//	}
 
 }

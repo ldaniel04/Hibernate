@@ -13,7 +13,7 @@ public class DepartmentDao {
             em.getTransaction().begin();
 
             
-            em.merge(department);
+            em.persist(department);
 
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -21,8 +21,6 @@ public class DepartmentDao {
                 em.getTransaction().rollback();
             }
             System.out.println("Problema al crear el departamento."); 
-        } finally {
-            em.close();
         }
     }
 

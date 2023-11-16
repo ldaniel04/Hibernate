@@ -3,6 +3,7 @@ package view;
 import java.util.List;
 
 import library.IO;
+import main.Main;
 import models.Worker;
 
 public class WorkerView {
@@ -43,6 +44,20 @@ final String options =  """
 		
 	}
 	
+	public Integer findWorkerById() {
+		IO.print("Clave ?: ");
+		Integer clave = IO.readInt();
+		
+		return clave;
+	}
+	
+//	public Integer update() {
+//		Integer id;
+//		
+//		IO.println("Selecciona la id: ");
+//		id = IO.readInt();
+//		return id;
+//	}
 	
 	public void show(List<Worker> workers) {
         if (workers.isEmpty()) {

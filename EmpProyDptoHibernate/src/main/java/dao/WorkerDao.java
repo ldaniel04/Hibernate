@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import main.Main;
 import models.Worker;
 
 public class WorkerDao {
@@ -37,12 +38,27 @@ public class WorkerDao {
 		return null;
 	}
 
+//	public Worker update(Worker worker) {
+//		logger.info(SELECT_ALL_WORKERS);
+//		
+//		Main.em.getTransaction().begin();
+//		
+//		String name = worker.getName();
+//		
+//		
+//	}
 	
-	public void findAll() {
-		logger.info("findAll");
-		
+	public Worker findById(Integer key) {
+		logger.info("findById()");
+		Worker worker;
+		Main.em.getTransaction().begin();
+		worker = Main.em.find(Worker.class, key);
+		return worker;
 		
 	}
+		
+		
+	
 
 	
 	public Boolean delete(Object entity) {
