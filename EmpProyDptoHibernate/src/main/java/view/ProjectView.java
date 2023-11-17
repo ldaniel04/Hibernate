@@ -3,6 +3,7 @@ package view;
 import java.util.List;
 
 import library.IO;
+import models.Department;
 import models.Project;
 
 public class ProjectView {
@@ -61,6 +62,18 @@ public class ProjectView {
 		Integer clave = IO.readInt();
 		
 		return clave;
+	}
+	
+	public Project updateProject(Project project) {
+		String name;
+		IO.println("Name?: ");
+		name = IO.readString();
+
+		
+		//Worker can't change id!
+		project.setName(name);
+		
+		return project;
 	}
 	
 	

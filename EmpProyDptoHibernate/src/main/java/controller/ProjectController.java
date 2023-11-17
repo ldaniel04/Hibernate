@@ -5,6 +5,7 @@ import java.util.List;
 import dao.ProjectDao;
 import jakarta.persistence.EntityManager;
 import main.Main;
+import models.Department;
 import models.Project;
 import view.ProjectView;
 
@@ -37,7 +38,7 @@ public class ProjectController {
 				 show(Main.em);
 				break;
 			case 3:
-				// Update
+				update();
 				break;
 			case 4:
 				// delete
@@ -73,6 +74,18 @@ public class ProjectController {
 		Integer id = projectMenuView.findProjectById();
 		Project project = projectDao.findById(id);
 		projectMenuView.readProject(project);
+	}
+	
+	public void update() {
+
+		Integer id = projectMenuView.findProjectById();
+
+		Project project = projectDao.findById(id);
+
+		project = projectMenuView.updateProject(project);
+
+		projectDao.update(project);
+
 	}
 
 }

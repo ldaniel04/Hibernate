@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import main.Main;
 import models.Department;
+import models.Worker;
 
 public class DepartmentDao {
 	private final Logger logger = Logger.getLogger(DepartmentDao.class.getName());
@@ -47,6 +48,17 @@ public class DepartmentDao {
 		Department department = Main.em.find(Department.class, key);
 		Main.em.getTransaction().commit();
 		return department;
+		
+	}
+    
+    public void update(Department department) {
+		
+		Main.em.getTransaction().begin();
+		
+		Main.em.merge(department);
+		
+		Main.em.getTransaction().commit();
+		
 		
 	}
 

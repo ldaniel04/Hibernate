@@ -4,6 +4,7 @@ import java.util.List;
 
 import library.IO;
 import models.Department;
+import models.Worker;
 
 public class DepartmentView {
 	
@@ -61,6 +62,18 @@ final String options =  """
 	public void readDepartment(Department department) {
 		System.out.println(department);
 		
+	}
+	
+	public Department updateDepartment(Department department) {
+		String name;
+		IO.println("Name?: ");
+		name = IO.readString();
+
+		
+		//Worker can't change id!
+		department.setName(name);
+		
+		return department;
 	}
 
 }

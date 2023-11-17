@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import main.Main;
+import models.Department;
 import models.Project;
 
 public class ProjectDao{
@@ -34,6 +35,17 @@ public class ProjectDao{
         return query.getResultList();
 	}
 
+	
+	 public void update(Project project) {
+			
+			Main.em.getTransaction().begin();
+			
+			Main.em.merge(project);
+			
+			Main.em.getTransaction().commit();
+			
+			
+		}
 	
 
 }

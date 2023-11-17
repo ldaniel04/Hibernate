@@ -6,6 +6,7 @@ import dao.DepartmentDao;
 import jakarta.persistence.EntityManager;
 import main.Main;
 import models.Department;
+import models.Worker;
 import view.DepartmentView;
 
 public class DepartmentController {
@@ -34,10 +35,10 @@ public class DepartmentController {
 				add(Main.em);
 				break;
 			case 2:
-				 show(Main.em);
+				show(Main.em);
 				break;
 			case 3:
-				// Update
+				update();
 				break;
 			case 4:
 				// delete
@@ -63,7 +64,7 @@ public class DepartmentController {
 		departmentDao.add(department, em);
 
 	}
-	
+
 	public void show(EntityManager em) {
 		List<Department> allDepartments = departmentDao.show(em);
 		departmentMenuView.show(allDepartments);
@@ -73,6 +74,18 @@ public class DepartmentController {
 		Integer id = departmentMenuView.findDepartmentById();
 		Department department = departmentDao.findById(id);
 		departmentMenuView.readDepartment(department);
+	}
+
+	public void update() {
+
+		Integer id = departmentMenuView.findDepartmentById();
+
+		Department department = departmentDao.findById(id);
+
+		department = departmentMenuView.updateDepartment(department);
+
+		departmentDao.update(department);
+
 	}
 
 }
