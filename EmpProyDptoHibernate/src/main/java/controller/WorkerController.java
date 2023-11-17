@@ -37,7 +37,7 @@ public class WorkerController {
 				show(Main.em);
 				break;
 			case 3:
-				// Update
+				update();
 				break;
 			case 4:
 				// delete
@@ -75,9 +75,17 @@ public class WorkerController {
 		workerMenuView.readWorker(worker);
 	}
 
-//	public void update(Integer id) {
-//		
-//		
-//	}
+	public void update() {
+		
+		Integer id = workerMenuView.findWorkerById();
+		
+		Worker worker = workerDao.findById(id);
+		
+		worker = workerMenuView.updateWorker(worker);
+		
+		workerDao.update(worker);
+		
+		
+	}
 
 }

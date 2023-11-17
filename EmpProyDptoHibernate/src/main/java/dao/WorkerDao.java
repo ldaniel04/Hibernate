@@ -33,15 +33,17 @@ public class WorkerDao {
 	
 	
 
-//	public Worker update(Worker worker) {
-//		logger.info(SELECT_ALL_WORKERS);
-//		
-//		Main.em.getTransaction().begin();
-//		
-//		String name = worker.getName();
-//		
-//		
-//	}
+	public void update(Worker worker) {
+		logger.info(SELECT_ALL_WORKERS);
+		
+		Main.em.getTransaction().begin();
+		
+		Main.em.merge(worker);
+		
+		Main.em.getTransaction().commit();
+		
+		
+	}
 	
 	public Worker findById(Integer key) {
 		logger.info("findById()");

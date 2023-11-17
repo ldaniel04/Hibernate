@@ -56,13 +56,20 @@ final String options =  """
 		
 	}
 	
-//	public Integer update() {
-//		Integer id;
-//		
-//		IO.println("Selecciona la id: ");
-//		id = IO.readInt();
-//		return id;
-//	}
+	public Worker updateWorker(Worker worker) {
+		String name;
+		Double salary;
+		IO.println("Name?: ");
+		name = IO.readString();
+		IO.println("Salary?: ");
+		salary = IO.readDouble();
+		
+		//Worker can't change id!
+		worker.setName(name);
+		worker.setSalary(salary);
+		
+		return worker;
+	}
 	
 	public void show(List<Worker> workers) {
         if (workers.isEmpty()) {
@@ -74,6 +81,8 @@ final String options =  """
             }
         }
 	}
+	
+	
 	
 		
 		
