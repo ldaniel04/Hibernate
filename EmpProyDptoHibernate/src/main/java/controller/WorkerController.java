@@ -2,9 +2,11 @@ package controller;
 
 import java.util.List;
 
+import dao.DepartmentDao;
 import dao.WorkerDao;
 import jakarta.persistence.EntityManager;
 import main.Main;
+import models.Department;
 import models.Worker;
 import view.WorkerView;
 
@@ -12,10 +14,12 @@ public class WorkerController {
 
 	private final WorkerView workerMenuView;
 	private final WorkerDao workerDao;
+	private final DepartmentDao departmentDao;  //To add worker to department (need to find departents)
 
 	public WorkerController() {
 		workerMenuView = new WorkerView();
 		workerDao = new WorkerDao();
+		departmentDao = new DepartmentDao();
 	}
 
 	public void menu() {
@@ -44,6 +48,9 @@ public class WorkerController {
 				break;
 			case 5:
 				findById();
+				break;
+			case 6:
+				addDepartmentToWorker();
 				break;
 			case -1:
 				break;
@@ -84,6 +91,22 @@ public class WorkerController {
 		worker = workerMenuView.updateWorker(worker);
 		
 		workerDao.update(worker);
+		
+		
+	}
+	
+	public void addDepartmentToWorker() {
+		
+		Integer id = workerMenuView.returnGenericId();
+		
+		Worker worker = workerDao.findById(id);
+		Department department = departmentDao.findById(workerMenuView.returnGenericId());
+		
+		worker = workerMenuView.addToDepartment(department, worker); //Returns worker with department
+		
+		workerDao.update(worker);
+		
+		
 		
 		
 	}

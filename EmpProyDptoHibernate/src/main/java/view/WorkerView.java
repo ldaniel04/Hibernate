@@ -3,6 +3,7 @@ package view;
 import java.util.List;
 
 import library.IO;
+import models.Department;
 import models.Worker;
 
 public class WorkerView {
@@ -15,6 +16,7 @@ final String options =  """
 			3. Update a worker
 			4. Delete a worker
 			5. Show by id
+			6. Add worker to a department
 			-1. Exit
 			
 			""";
@@ -80,6 +82,30 @@ final String options =  """
                 System.out.println(worker.toString());
             }
         }
+	}
+	
+	public Integer returnGenericId() {
+		Integer id;
+		
+		IO.println("Write an id");
+		id = IO.readInt();
+		
+		return id;
+	}
+	
+	public Worker addToDepartment(Department department, Worker worker) {
+		
+		Integer id;
+		
+		IO.println("Select worker destinations department's id: ");
+
+		id = IO.readInt();
+		
+		department.addDepart(worker);
+		
+		return worker;
+		
+		
 	}
 	
 	
