@@ -15,6 +15,7 @@ final String options =  """
 			2. Show workers
 			3. Update a worker
 			4. Delete a worker
+			5. Show by id
 			-1. Exit
 			
 			""";
@@ -49,6 +50,11 @@ final String options =  """
 		Integer clave = IO.readInt();
 		
 		return clave;
+	}
+	
+	public void readWorker(Worker worker) {
+		System.out.println(worker);
+		
 	}
 	
 //	public Integer update() {

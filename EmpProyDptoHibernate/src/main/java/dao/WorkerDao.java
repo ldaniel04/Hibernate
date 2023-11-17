@@ -50,9 +50,10 @@ public class WorkerDao {
 	
 	public Worker findById(Integer key) {
 		logger.info("findById()");
-		Worker worker;
+		
 		Main.em.getTransaction().begin();
-		worker = Main.em.find(Worker.class, key);
+		Worker worker = Main.em.find(Worker.class, key);
+		Main.em.getTransaction().commit();
 		return worker;
 		
 	}

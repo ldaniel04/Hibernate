@@ -43,6 +43,8 @@ public class WorkerController {
 			case 4:
 				//delete
 				break;
+			case 5:
+				findById();
 			case -1:
 				break;
 			default:
@@ -70,9 +72,10 @@ public class WorkerController {
 		workerMenuView.show(allWorkers);
 	}
 	
-	public void findById(Integer clave) {
-		workerDao.findById(clave);
-		
+	public void findById() {
+		Integer id = workerMenuView.findWorkerById();
+		Worker worker = workerDao.findById(id);
+		workerMenuView.readWorker(worker);
 	}
 	
 //	public void update(Integer id) {
