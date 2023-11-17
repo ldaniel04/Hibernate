@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+
 import library.IO;
 import models.Project;
 
@@ -11,6 +13,7 @@ public class ProjectView {
 			2. Show projects
 			3. Update a project
 			4. Delete a project
+			5. FindByID
 			-1. Exit
 			""";
 	
@@ -35,6 +38,29 @@ public class ProjectView {
 		
 		return project;
 		
+	}
+	
+	public void readProject(Project project) {
+		System.out.println(project);
+		
+	}
+	
+	public void show(List<Project> projects) {
+        if (projects.isEmpty()) {
+            System.out.println("No projects found.");
+        } else {
+            System.out.println("List of Projects:");
+            for (Project project : projects) {
+                System.out.println(project.toString());
+            }
+        }
+	}
+	
+	public Integer findProjectById() {
+		IO.print("Clave ?: ");
+		Integer clave = IO.readInt();
+		
+		return clave;
 	}
 	
 	

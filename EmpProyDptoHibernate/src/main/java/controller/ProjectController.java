@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import dao.ProjectDao;
 import jakarta.persistence.EntityManager;
 import main.Main;
@@ -32,13 +34,16 @@ public class ProjectController {
 				add(Main.em);
 				break;
 			case 2:
-				// Show
+				 show(Main.em);
 				break;
 			case 3:
 				// Update
 				break;
 			case 4:
 				// delete
+				break;
+			case 5:
+				findById();
 				break;
 			case -1:
 				break;
@@ -57,6 +62,17 @@ public class ProjectController {
 
 		projectDao.add(project, em);
 
+	}
+	
+	public void show(EntityManager em) {
+		List<Project> allProjects = projectDao.show(em);
+		projectMenuView.show(allProjects);
+	}
+
+	public void findById() {
+		Integer id = projectMenuView.findProjectById();
+		Project project = projectDao.findById(id);
+		projectMenuView.readProject(project);
 	}
 
 }

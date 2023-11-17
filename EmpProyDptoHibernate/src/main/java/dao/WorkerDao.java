@@ -1,7 +1,6 @@
 package dao;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import jakarta.persistence.EntityManager;
@@ -32,11 +31,7 @@ public class WorkerDao {
 	
 
 	
-	public Optional<Worker> findById(Object id) {
-		logger.info("findById");
-		
-		return null;
-	}
+	
 
 //	public Worker update(Worker worker) {
 //		logger.info(SELECT_ALL_WORKERS);

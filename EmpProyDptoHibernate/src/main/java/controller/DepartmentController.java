@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import dao.DepartmentDao;
 import jakarta.persistence.EntityManager;
 import main.Main;
@@ -32,13 +34,16 @@ public class DepartmentController {
 				add(Main.em);
 				break;
 			case 2:
-				// Show
+				 show(Main.em);
 				break;
 			case 3:
 				// Update
 				break;
 			case 4:
 				// delete
+				break;
+			case 5:
+				findById();
 				break;
 			case -1:
 				break;
@@ -57,6 +62,17 @@ public class DepartmentController {
 
 		departmentDao.add(department, em);
 
+	}
+	
+	public void show(EntityManager em) {
+		List<Department> allDepartments = departmentDao.show(em);
+		departmentMenuView.show(allDepartments);
+	}
+
+	public void findById() {
+		Integer id = departmentMenuView.findDepartmentById();
+		Department department = departmentDao.findById(id);
+		departmentMenuView.readDepartment(department);
 	}
 
 }

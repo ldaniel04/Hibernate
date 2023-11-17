@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+
 import library.IO;
 import models.Department;
 
@@ -11,6 +13,7 @@ final String options =  """
 			2. Show departments
 			3. Update a department
 			4. Delete a department
+			5. ShowByID
 			-1. Exit
 			
 			""";
@@ -34,6 +37,29 @@ final String options =  """
 		Department department = Department.builder().name(name).build();
 		
 		return department;
+		
+	}
+	
+	public void show(List<Department> departments) {
+        if (departments.isEmpty()) {
+            System.out.println("No departments found.");
+        } else {
+            System.out.println("List of Departments:");
+            for (Department department : departments) {
+                System.out.println(department.toString());
+            }
+        }
+	}
+	
+	public Integer findDepartmentById() {
+		IO.print("Clave ?: ");
+		Integer clave = IO.readInt();
+		
+		return clave;
+	}
+	
+	public void readDepartment(Department department) {
+		System.out.println(department);
 		
 	}
 

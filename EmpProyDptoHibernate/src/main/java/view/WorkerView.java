@@ -3,7 +3,6 @@ package view;
 import java.util.List;
 
 import library.IO;
-import main.Main;
 import models.Worker;
 
 public class WorkerView {
@@ -71,7 +70,7 @@ final String options =  """
         } else {
             System.out.println("List of Workers:");
             for (Worker worker : workers) {
-                System.out.println(worker.getName());
+                System.out.println(worker.toString());
             }
         }
 	}
