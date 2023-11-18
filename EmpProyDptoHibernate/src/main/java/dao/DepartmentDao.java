@@ -61,6 +61,23 @@ public class DepartmentDao {
 		
 		
 	}
+    
+    public void delete(Department department, List<Worker> workers) {
+    	
+    	Main.em.getTransaction().begin();
+    	
+    	for (Worker worker : workers) {
+			if(worker.getDepart().getId() == department.getId()) {
+				worker.setDepart(null);
+			}
+		}
+    	
+    	Main.em.remove(department);
+    	
+    	
+    	Main.em.getTransaction().commit();
+    	
+    }
 
 	
 

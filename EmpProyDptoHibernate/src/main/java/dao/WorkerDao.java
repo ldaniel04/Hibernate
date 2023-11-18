@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import main.Main;
+import models.Department;
 import models.Worker;
 
 public class WorkerDao {
@@ -59,8 +60,20 @@ public class WorkerDao {
 	
 
 	
-	public Boolean delete(Object entity) {
-		return null;
+	public Boolean delete(Worker worker, Department department) {
+		
+		Main.em.getTransaction().begin();
+		
+		if(department.getBoss().getId() == worker.getId()) {
+			department.setBoss(null);
+			Main.em.remove(worker);
+		}else {
+			Main.em.remove(worker);
+		}
+		
+		Main.em.getTransaction().commit();
+		
+		return null; //Need create inWorkerVier something that reads this or change this return to a void
 	}
 
 }

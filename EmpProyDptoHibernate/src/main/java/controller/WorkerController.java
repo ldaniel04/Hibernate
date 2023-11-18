@@ -44,7 +44,7 @@ public class WorkerController {
 				update();
 				break;
 			case 4:
-				// delete
+				deleteWorker();
 				break;
 			case 5:
 				findById();
@@ -97,17 +97,26 @@ public class WorkerController {
 	
 	public void addDepartmentToWorker() {
 		
-		Integer id = workerMenuView.returnGenericId();
+		Integer id = workerMenuView.returnGenericIdToAddDepartment("worker", false);
 		
 		Worker worker = workerDao.findById(id);
-		Department department = departmentDao.findById(workerMenuView.returnGenericId());
+		Department department = departmentDao.findById(workerMenuView.returnGenericIdToAddDepartment("department", true));
 		
 		worker = workerMenuView.addToDepartment(department, worker); //Returns worker with department
 		
 		workerDao.update(worker);
 		
+	}
+	
+	public void deleteWorker() {
 		
+		Integer id = workerMenuView.returnGenericIdToDelete();
 		
+		Worker worker = workerDao.findById(id);
+		Department department = worker.getDepart();
+		
+		workerDao.delete(worker, department);
+				
 		
 	}
 

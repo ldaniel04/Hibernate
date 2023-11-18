@@ -41,6 +41,18 @@ public class Worker {
 		
 		project.getWorkers().add(this);
 	}
+	
+	
+	@Override
+	public String toString(){
+		String print;
+		if(depart == null) {
+			print = id + ", " + name + ", " + salary + ", " + "sin departamento!";
+		}else {
+			print =  id + ", " + name + ", " + salary + ", " + depart.getName();
+		}
+		return print;
+	}
 
 }
 

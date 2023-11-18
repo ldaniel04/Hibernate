@@ -32,6 +32,18 @@ public class Department {
 		worker.setDepart(this);
 	}
 	
+	@Override
+	public String toString(){
+		String print;
+		
+		if(boss == null) {
+			print = id + ", " + name + ", " + "sin jefe!";
+		}else {
+			print = id + ", " + name + ", " + boss.getName();
+		}
+		return print;
+	}
+	
 }
 
 

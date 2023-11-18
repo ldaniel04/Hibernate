@@ -16,7 +16,7 @@ final String options =  """
 			3. Update a worker
 			4. Delete a worker
 			5. Show by id
-			6. Add worker to a department
+			6. Add/change worker to a department
 			-1. Exit
 			
 			""";
@@ -84,10 +84,15 @@ final String options =  """
         }
 	}
 	
-	public Integer returnGenericId() {
+	public Integer returnGenericIdToAddDepartment(String objectSearch, boolean add) {
 		Integer id;
 		
-		IO.println("Write an id");
+		if(add) {
+			IO.println("Write an id to search " + objectSearch + "in which worker is going to be inserted");
+		}else {
+			IO.println("Write an id to search " + objectSearch + "to be inserted into a department");
+		}
+		
 		id = IO.readInt();
 		
 		return id;
@@ -95,11 +100,11 @@ final String options =  """
 	
 	public Worker addToDepartment(Department department, Worker worker) {
 		
-		Integer id;
-		
-		IO.println("Select worker destinations department's id: ");
-
-		id = IO.readInt();
+//		Integer id;
+//		
+//		IO.println("Select worker destinations department's id: ");
+//
+//		id = IO.readInt();
 		
 		department.addDepart(worker);
 		
@@ -108,6 +113,16 @@ final String options =  """
 		
 	}
 	
+	
+	public Integer returnGenericIdToDelete() {
+		Integer id;
+		
+		IO.println("Select id to delete: ");
+		
+		id = IO.readInt();
+		
+		return id;
+	}
 	
 	
 		
