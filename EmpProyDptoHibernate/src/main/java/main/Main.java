@@ -8,16 +8,28 @@ import models.Worker;
 
 public class Main {
 	
-	public static EntityManager em = Persistence.createEntityManagerFactory("unidad-persistencia").createEntityManager();
+	public static EntityManager em = open();
 
 	public static void main(String[] args) {
 	
-		Persistence.generateSchema("unidad-persistencia", null);
 		
-		em = Persistence.createEntityManagerFactory("unidad-persistencia").createEntityManager();
+		
+	
 		//Need to create interface CRUD as pro has in his hibernate's project??????
 		new MainController();
 		
+		
+	}
+	
+	public static EntityManager open() {
+		
+		Persistence.generateSchema("unidad-persistencia", null);
+		
+		if(em == null) {
+			em = Persistence.createEntityManagerFactory("unidad-persistencia").createEntityManager();
+		}
+		
+		return em;
 		
 	}
 	
