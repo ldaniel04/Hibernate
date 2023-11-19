@@ -4,7 +4,9 @@ import java.util.List;
 
 import dao.DepartmentDao;
 import dao.WorkerDao;
+import exceptions.OurExceptions;
 import jakarta.persistence.EntityManager;
+import library.IO;
 import main.Main;
 import models.Department;
 import models.Worker;
@@ -65,9 +67,17 @@ public class WorkerController {
 
 	public void add(EntityManager em) {
 
-		Worker worker = workerMenuView.create();
+		Worker worker;
+		try {
+			worker = workerMenuView.create();
+			workerDao.add(worker, em);
+		} catch (OurExceptions e) {
+			// TODO Auto-generated catch block
+			IO.println(e.getMessage());
+			return;
+		}
 
-		workerDao.add(worker, em);
+		
 
 	}
 
@@ -88,6 +98,11 @@ public class WorkerController {
 		
 		Worker worker = workerDao.findById(id);
 		
+		if(worker == null) {
+			workerMenuView.error("That worker does not exist! Returning to main menu");
+			return;
+		}
+		
 		worker = workerMenuView.updateWorker(worker);
 		
 		workerDao.update(worker);
@@ -100,7 +115,16 @@ public class WorkerController {
 		Integer id = workerMenuView.returnGenericIdToAddDepartment("worker", false);
 		
 		Worker worker = workerDao.findById(id);
+		if(worker == null) {
+			workerMenuView.error("That worker does not exist! Returning to main menu");
+			return;
+		}
 		Department department = departmentDao.findById(workerMenuView.returnGenericIdToAddDepartment("department", true));
+		
+		if(department == null) {
+			workerMenuView.error("That department does not exist! Returning to main menu");
+			return;
+		}
 		
 		worker = workerMenuView.addToDepartment(department, worker); //Returns worker with department
 		
@@ -113,6 +137,12 @@ public class WorkerController {
 		Integer id = workerMenuView.returnGenericIdToDelete();
 		
 		Worker worker = workerDao.findById(id);
+		if(worker == null) {
+			workerMenuView.error("That worker does not exist! Returning to main menu");
+			return;
+		}
+		
+		
 		Department department = worker.getDepart();
 		
 		workerDao.delete(worker, department);

@@ -2,6 +2,7 @@ package view;
 
 import java.util.List;
 
+import exceptions.OurExceptions;
 import library.IO;
 import models.Department;
 import models.Project;
@@ -15,7 +16,7 @@ public class ProjectView {
 			3. Update a project
 			4. Delete a project
 			5. FindByID
-			-1. Exit
+			-1. Back
 			""";
 	
 	
@@ -30,11 +31,13 @@ public class ProjectView {
 	}
 	
 	
-	public Project create() {
+	public Project create()throws OurExceptions {
 		
 		IO.print("name: ?");
 		String name = IO.readString();
-		
+		if(name.equals("")) {
+			throw new OurExceptions("Name can not be empty");
+		}
 		Project project = Project.builder().name(name).build();
 		
 		return project;
@@ -69,8 +72,11 @@ public class ProjectView {
 		IO.println("Name?: ");
 		name = IO.readString();
 
+		if(name.equals("")) {
+			name = project.getName();
+		}
 		
-		//Worker can't change id!
+		//Id can't change id!
 		project.setName(name);
 		
 		return project;

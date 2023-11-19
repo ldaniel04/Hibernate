@@ -64,7 +64,7 @@ public class WorkerDao {
 		
 		Main.em.getTransaction().begin();
 		
-		if(department.getBoss().getId() == worker.getId()) {
+		if(worker.getDepart()!= null && department.getBoss()!= null && department.getBoss().getId() == worker.getId()) {
 			department.setBoss(null);
 			Main.em.remove(worker);
 		}else {

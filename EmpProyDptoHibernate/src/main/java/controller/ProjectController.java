@@ -3,7 +3,9 @@ package controller;
 import java.util.List;
 
 import dao.ProjectDao;
+import exceptions.OurExceptions;
 import jakarta.persistence.EntityManager;
+import library.IO;
 import main.Main;
 import models.Department;
 import models.Project;
@@ -59,9 +61,16 @@ public class ProjectController {
 
 	public void add(EntityManager em) {
 
-		Project project = projectMenuView.create();
+		Project project;
+		try {
+			project = projectMenuView.create();
+			projectDao.add(project, em);
+		} catch (OurExceptions e) {
+			// TODO Auto-generated catch block
+			IO.println(e.getMessage());
+		}
 
-		projectDao.add(project, em);
+		
 
 	}
 	

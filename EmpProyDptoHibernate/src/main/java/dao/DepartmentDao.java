@@ -67,7 +67,7 @@ public class DepartmentDao {
     	Main.em.getTransaction().begin();
     	
     	for (Worker worker : workers) {
-			if(worker.getDepart().getId() == department.getId()) {
+			if(worker != null && worker.getDepart()!= null &&  worker.getDepart().getId() == department.getId()) {
 				worker.setDepart(null);
 			}
 		}

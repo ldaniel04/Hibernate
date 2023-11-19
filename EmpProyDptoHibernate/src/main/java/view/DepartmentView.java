@@ -2,6 +2,7 @@ package view;
 
 import java.util.List;
 
+import exceptions.OurExceptions;
 import library.IO;
 import models.Department;
 import models.Worker;
@@ -16,7 +17,7 @@ public class DepartmentView {
 			4. Delete a department
 			5. ShowByID
 			6. Add/change boss to a department
-			-1. Exit
+			-1. Back
 
 			""";
 
@@ -29,10 +30,13 @@ public class DepartmentView {
 
 	}
 
-	public Department create() {
+	public Department create() throws OurExceptions {
 
 		IO.print("name: ?");
 		String name = IO.readString();
+		if(name.equals("")) {
+			throw new OurExceptions("Name can not be empty");
+		}
 
 		Department department = Department.builder().name(name).build();
 
@@ -67,8 +71,12 @@ public class DepartmentView {
 		String name;
 		IO.println("Name?: ");
 		name = IO.readString();
+		
+		if(name.equals("")) {
+			name = department.getName();
+		}
 
-		// Worker can't change id!
+		// Department can't change id!
 		department.setName(name);
 
 		return department;
@@ -110,6 +118,10 @@ public class DepartmentView {
 		id = IO.readInt();
 
 		return id;
+	}
+	
+	public void error(String error) {
+		IO.println(error);
 	}
 
 }
