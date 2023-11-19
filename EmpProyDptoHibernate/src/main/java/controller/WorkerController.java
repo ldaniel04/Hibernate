@@ -3,12 +3,14 @@ package controller;
 import java.util.List;
 
 import dao.DepartmentDao;
+import dao.ProjectDao;
 import dao.WorkerDao;
 import exceptions.OurExceptions;
 import jakarta.persistence.EntityManager;
 import library.IO;
 import main.Main;
 import models.Department;
+import models.Project;
 import models.Worker;
 import view.WorkerView;
 
@@ -17,11 +19,13 @@ public class WorkerController {
 	private final WorkerView workerMenuView;
 	private final WorkerDao workerDao;
 	private final DepartmentDao departmentDao;  //To add worker to department (need to find departents)
+	private final ProjectDao projectDao;
 
 	public WorkerController() {
 		workerMenuView = new WorkerView();
 		workerDao = new WorkerDao();
 		departmentDao = new DepartmentDao();
+		projectDao = new ProjectDao();
 	}
 
 	public void menu() {
@@ -54,10 +58,13 @@ public class WorkerController {
 			case 6:
 				addDepartmentToWorker();
 				break;
+			case 7:
+				addProjectToWorker();
+				break;
 			case -1:
 				break;
 			default:
-				// return string ??
+				System.out.println("No valid option");
 
 			}
 
@@ -112,14 +119,14 @@ public class WorkerController {
 	
 	public void addDepartmentToWorker() {
 		
-		Integer id = workerMenuView.returnGenericIdToAddDepartment("worker", false);
+		Integer id = workerMenuView.returnGenericIdForAdding("worker", false);
 		
 		Worker worker = workerDao.findById(id);
 		if(worker == null) {
 			workerMenuView.error("That worker does not exist! Returning to main menu");
 			return;
 		}
-		Department department = departmentDao.findById(workerMenuView.returnGenericIdToAddDepartment("department", true));
+		Department department = departmentDao.findById(workerMenuView.returnGenericIdForAdding("department", true));
 		
 		if(department == null) {
 			workerMenuView.error("That department does not exist! Returning to main menu");
@@ -132,22 +139,37 @@ public class WorkerController {
 		
 	}
 	
+	
+	public void addProjectToWorker() {
+	
+		Integer idWorker = workerMenuView.returnGenericIdForAdding("worker", false);
+		Worker worker =  workerDao.findById(idWorker);
+		if (worker == null) {
+			workerMenuView.error("That worker does not exist! Returning to main menu");
+			return;
+		}
+		
+		Project project = projectDao.findById(workerMenuView.returnGenericIdForAdding("project", true));
+		if (project == null) {
+			workerMenuView.error("That project does not exist! Returning to main menu");
+			return;
+		}
+
+		worker = workerMenuView.addToProject(project, worker);
+		workerDao.update(worker);
+	}
+	
 	public void deleteWorker() {
-		
 		Integer id = workerMenuView.returnGenericIdToDelete();
-		
 		Worker worker = workerDao.findById(id);
+		
 		if(worker == null) {
 			workerMenuView.error("That worker does not exist! Returning to main menu");
 			return;
 		}
 		
-		
 		Department department = worker.getDepart();
-		
 		workerDao.delete(worker, department);
-				
-		
-	}
 
+	}
 }

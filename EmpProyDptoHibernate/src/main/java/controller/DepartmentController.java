@@ -56,12 +56,9 @@ public class DepartmentController {
 			case -1:
 				break;
 			default:
-				// return string ??
-
+				System.out.println("No valid option");
 			}
-
 		}
-
 	}
 
 	public void add(EntityManager em) {

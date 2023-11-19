@@ -13,67 +13,55 @@ public class WorkerDao {
 	private final Logger logger = Logger.getLogger(WorkerDao.class.getName());
 	private static final String SELECT_ALL_WORKERS = "SELECT e FROM Worker e";
 
-	
 	public void add(Worker worker, EntityManager em) {
 		logger.info("add()");
 		em.getTransaction().begin();
 		em.persist(worker);
-		
+
 		em.getTransaction().commit();
-		
+
 	}
 
-	
 	public List<Worker> show(EntityManager em) {
 		TypedQuery<Worker> query = em.createQuery(SELECT_ALL_WORKERS, Worker.class);
-        return query.getResultList();
+		return query.getResultList();
 	}
-
-	
-
-	
-	
 
 	public void update(Worker worker) {
 		logger.info(SELECT_ALL_WORKERS);
-		
+
 		Main.em.getTransaction().begin();
-		
 		Main.em.merge(worker);
-		
 		Main.em.getTransaction().commit();
-		
-		
+
 	}
-	
+
 	public Worker findById(Integer key) {
 		logger.info("findById()");
-		
+
 		Main.em.getTransaction().begin();
 		Worker worker = Main.em.find(Worker.class, key);
 		Main.em.getTransaction().commit();
 		return worker;
-		
-	}
-		
-		
-	
 
-	
+	}
+
 	public Boolean delete(Worker worker, Department department) {
-		
+
 		Main.em.getTransaction().begin();
-		
-		if(worker.getDepart()!= null && department.getBoss()!= null && department.getBoss().getId() == worker.getId()) {
+
+		if (worker.getDepart() != null && department.getBoss() != null
+				&& department.getBoss().getId() == worker.getId()) {
 			department.setBoss(null);
 			Main.em.remove(worker);
-		}else {
+		} else {
 			Main.em.remove(worker);
 		}
-		
+
 		Main.em.getTransaction().commit();
-		
-		return null; //Need create inWorkerVier something that reads this or change this return to a void
+
+		return null; // Need create inWorkerVier something that reads this or change this return to a
+						// void
 	}
 
 }

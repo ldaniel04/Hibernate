@@ -3,22 +3,25 @@ package controller;
 import java.util.List;
 
 import dao.ProjectDao;
+import dao.WorkerDao;
 import exceptions.OurExceptions;
 import jakarta.persistence.EntityManager;
 import library.IO;
 import main.Main;
-import models.Department;
 import models.Project;
+import models.Worker;
 import view.ProjectView;
 
 public class ProjectController {
 
 	private final ProjectView projectMenuView;
 	private final ProjectDao projectDao;
+	private final WorkerDao workerDao;
 
 	public ProjectController() {
 		projectMenuView = new ProjectView();
 		projectDao = new ProjectDao();
+		workerDao = new WorkerDao();
 	}
 
 	public void menu() {
@@ -37,30 +40,29 @@ public class ProjectController {
 				add(Main.em);
 				break;
 			case 2:
-				 show(Main.em);
+				show(Main.em);
 				break;
 			case 3:
 				update();
 				break;
 			case 4:
-				// delete
+				delete();
 				break;
 			case 5:
 				findById();
 				break;
+			case 6:
+				addWorkerToProject();
+				break;
 			case -1:
 				break;
 			default:
-				// return string ??
-
+				System.out.println("No valid option");
 			}
-
 		}
-
 	}
 
 	public void add(EntityManager em) {
-
 		Project project;
 		try {
 			project = projectMenuView.create();
@@ -69,14 +71,31 @@ public class ProjectController {
 			// TODO Auto-generated catch block
 			IO.println(e.getMessage());
 		}
-
-		
-
 	}
-	
+
 	public void show(EntityManager em) {
 		List<Project> allProjects = projectDao.show(em);
 		projectMenuView.show(allProjects);
+	}
+
+	public void update() {
+		Integer id = projectMenuView.findProjectById();
+		Project project = projectDao.findById(id);
+		project = projectMenuView.updateProject(project);
+		projectDao.update(project);
+
+	}
+
+	public void delete() {//ESTE NO BORRA PORQUE HAY QUE CONTROLAR LOS WORKERS
+		Integer id = projectMenuView.returnGenericIdToDelete();
+		Project project = projectDao.findById(id);
+
+		if (project == null) {
+			projectMenuView.error("That project does not exist! Returning to main menu");
+			return;
+		}
+
+		projectDao.delete(project);
 	}
 
 	public void findById() {
@@ -84,17 +103,22 @@ public class ProjectController {
 		Project project = projectDao.findById(id);
 		projectMenuView.readProject(project);
 	}
-	
-	public void update() {
 
-		Integer id = projectMenuView.findProjectById();
+	public void addWorkerToProject(){//ESTTE NO AÑADE 
 
-		Project project = projectDao.findById(id);
+		Integer idProject = projectMenuView.returnGenericIdForAdding("project", false);
+		Project project = projectDao.findById(idProject);
+		if (project == null) {
+			projectMenuView.error("That project does not exist! Returning to main menu");
+			return;
+		}
 
-		project = projectMenuView.updateProject(project);
-
+		Worker worker = workerDao.findById(projectMenuView.returnGenericIdForAdding("worker", true));
+		if (worker == null) {
+			projectMenuView.error("That worker does not exist! Returning to main menu");
+			return;
+		}
+		project = projectMenuView.addWorkerTo(project, worker);
 		projectDao.update(project);
-
 	}
-
 }

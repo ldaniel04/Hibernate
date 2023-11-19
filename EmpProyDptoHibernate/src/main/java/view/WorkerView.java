@@ -5,6 +5,7 @@ import java.util.List;
 import exceptions.OurExceptions;
 import library.IO;
 import models.Department;
+import models.Project;
 import models.Worker;
 
 public class WorkerView {
@@ -17,6 +18,7 @@ public class WorkerView {
 			4. Delete a worker
 			5. Show by id
 			6. Add/change worker to a department
+			7. Add/change worker to a project
 			-1. Back
 
 			""";
@@ -32,13 +34,13 @@ public class WorkerView {
 
 	public Worker create() throws OurExceptions {
 
-		IO.print("Name ?: ");
+		IO.print("Worker's Name: ");
 		String name = IO.readString();
 		if (name.equals("")) {
 
 			throw new OurExceptions("Name can not be empty");
 		}
-		IO.print("Salary: ? ");
+		IO.print("Worker's Salary: ");
 		Double salary = IO.readDouble();
 
 		Worker worker = Worker.builder().name(name).salary(salary).build();
@@ -48,7 +50,7 @@ public class WorkerView {
 	}
 
 	public Integer findWorkerById() {
-		IO.print("Clave ?: ");
+		IO.print("Worker's ID: ");
 		Integer clave = IO.readInt();
 
 		return clave;
@@ -62,13 +64,13 @@ public class WorkerView {
 	public Worker updateWorker(Worker worker) {
 		String name;
 		Double salary;
-		IO.println("Name?: ");
+		IO.println("New worker's name: ");
 		name = IO.readString();
 
 		if (name.equals("")) {
 			name = worker.getName();
 		}
-		IO.println("Salary?: ");
+		IO.println("New salary: ");
 		salary = IO.readDouble();
 
 		// Worker can't change id!
@@ -82,20 +84,20 @@ public class WorkerView {
 		if (workers.isEmpty()) {
 			System.out.println("No workers found.");
 		} else {
-			System.out.println("List of Workers:");
+			System.out.println("List of Workers:\nID:\tNAME:\tSALARY:\tDEPARTMENT:");
 			for (Worker worker : workers) {
 				System.out.println(worker.toString());
 			}
 		}
 	}
 
-	public Integer returnGenericIdToAddDepartment(String objectSearch, boolean add) {
+	public Integer returnGenericIdForAdding(String objectSearch, boolean add) {
 		Integer id;
 
 		if (add) {
-			IO.println("Write an id to search " + objectSearch + "in which worker is going to be inserted");
+			IO.println("Write an id to search a " + objectSearch + " in which worker is going to be inserted");
 		} else {
-			IO.println("Write an id to search " + objectSearch + "to be inserted into a department");
+			IO.println("Write an id to search a " + objectSearch + " to be inserted into");
 		}
 
 		id = IO.readInt();
@@ -105,25 +107,23 @@ public class WorkerView {
 
 	public Worker addToDepartment(Department department, Worker worker) {
 
-//		Integer id;
-//		
-//		IO.println("Select worker destinations department's id: ");
-//
-//		id = IO.readInt();
-
 		department.addDepart(worker);
 
+		return worker;
+
+	}
+	
+	public Worker addToProject(Project project, Worker worker) {
+
+		project.addProjectToWorker(worker);
 		return worker;
 
 	}
 
 	public Integer returnGenericIdToDelete() {
 		Integer id;
-
-		IO.println("Select id to delete: ");
-
+		IO.println("Select Worker's ID to delete: ");
 		id = IO.readInt();
-
 		return id;
 	}
 
