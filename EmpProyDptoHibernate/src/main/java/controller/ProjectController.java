@@ -5,9 +5,7 @@ import java.util.List;
 import dao.ProjectDao;
 import dao.WorkerDao;
 import exceptions.OurExceptions;
-import jakarta.persistence.EntityManager;
 import library.IO;
-import main.Main;
 import models.Project;
 import models.Worker;
 import view.ProjectView;
@@ -37,10 +35,10 @@ public class ProjectController {
 
 			case 1:
 				// Create / Add
-				add(Main.em);
+				add();
 				break;
 			case 2:
-				show(Main.em);
+				show();
 				break;
 			case 3:
 				update();
@@ -62,19 +60,19 @@ public class ProjectController {
 		}
 	}
 
-	public void add(EntityManager em) {
+	public void add() {
 		Project project;
 		try {
 			project = projectMenuView.create();
-			projectDao.add(project, em);
+			projectDao.add(project);
 		} catch (OurExceptions e) {
 			// TODO Auto-generated catch block
 			IO.println(e.getMessage());
 		}
 	}
 
-	public void show(EntityManager em) {
-		List<Project> allProjects = projectDao.show(em);
+	public void show() {
+		List<Project> allProjects = projectDao.show();
 		projectMenuView.show(allProjects);
 	}
 
@@ -91,7 +89,7 @@ public class ProjectController {
 		Project project = projectDao.findById(id);
 
 		if (project == null) {
-			projectMenuView.error("That project does not exist! Returning to main menu");
+			projectMenuView.error("That project does not exist! Returning to project menu");
 			return;
 		}
 
@@ -109,13 +107,13 @@ public class ProjectController {
 		Integer idProject = projectMenuView.returnGenericIdForAdding("project", false);
 		Project project = projectDao.findById(idProject);
 		if (project == null) {
-			projectMenuView.error("That project does not exist! Returning to main menu");
+			projectMenuView.error("That project does not exist! Returning to project menu");
 			return;
 		}
 
 		Worker worker = workerDao.findById(projectMenuView.returnGenericIdForAdding("worker", true));
 		if (worker == null) {
-			projectMenuView.error("That worker does not exist! Returning to main menu");
+			projectMenuView.error("That worker does not exist! Returning to project menu");
 			return;
 		}
 		project = projectMenuView.addWorkerTo(project, worker);

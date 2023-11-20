@@ -36,9 +36,9 @@ public class Department {
 		String print;
 		
 		if(boss == null) {
-			print = id + ", " + name + ", " + "Without Boss!";
+			print = id + "\t\t\t" + name + "\t\t\t" + "Without Boss!";
 		}else {
-			print = id + ", " + name + ", " + boss.getName();
+			print = id + "\t\t\t" + name + "\t\t\t" + boss.getName();
 		}
 		return print;
 	}

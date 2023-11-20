@@ -6,9 +6,7 @@ import dao.DepartmentDao;
 import dao.ProjectDao;
 import dao.WorkerDao;
 import exceptions.OurExceptions;
-import jakarta.persistence.EntityManager;
 import library.IO;
-import main.Main;
 import models.Department;
 import models.Project;
 import models.Worker;
@@ -41,10 +39,10 @@ public class WorkerController {
 
 			case 1:
 				// Create / Add
-				add(Main.em);
+				add();
 				break;
 			case 2:
-				show(Main.em);
+				show();
 				break;
 			case 3:
 				update();
@@ -72,12 +70,12 @@ public class WorkerController {
 
 	}
 
-	public void add(EntityManager em) {
+	public void add() {
 
 		Worker worker;
 		try {
 			worker = workerMenuView.create();
-			workerDao.add(worker, em);
+			workerDao.add(worker);
 		} catch (OurExceptions e) {
 			// TODO Auto-generated catch block
 			IO.println(e.getMessage());
@@ -88,8 +86,8 @@ public class WorkerController {
 
 	}
 
-	public void show(EntityManager em) {
-		List<Worker> allWorkers = workerDao.show(em);
+	public void show() {
+		List<Worker> allWorkers = workerDao.show();
 		workerMenuView.show(allWorkers);
 	}
 
@@ -106,7 +104,7 @@ public class WorkerController {
 		Worker worker = workerDao.findById(id);
 		
 		if(worker == null) {
-			workerMenuView.error("That worker does not exist! Returning to main menu");
+			workerMenuView.error("That worker does not exist! Returning to worker menu");
 			return;
 		}
 		
@@ -123,13 +121,13 @@ public class WorkerController {
 		
 		Worker worker = workerDao.findById(id);
 		if(worker == null) {
-			workerMenuView.error("That worker does not exist! Returning to main menu");
+			workerMenuView.error("That worker does not exist! Returning to worker menu");
 			return;
 		}
 		Department department = departmentDao.findById(workerMenuView.returnGenericIdForAdding("department", true));
 		
 		if(department == null) {
-			workerMenuView.error("That department does not exist! Returning to main menu");
+			workerMenuView.error("That department does not exist! Returning to worker menu");
 			return;
 		}
 		
@@ -145,13 +143,13 @@ public class WorkerController {
 		Integer idWorker = workerMenuView.returnGenericIdForAdding("worker", false);
 		Worker worker =  workerDao.findById(idWorker);
 		if (worker == null) {
-			workerMenuView.error("That worker does not exist! Returning to main menu");
+			workerMenuView.error("That worker does not exist! Returning to worker menu");
 			return;
 		}
 		
 		Project project = projectDao.findById(workerMenuView.returnGenericIdForAdding("project", true));
 		if (project == null) {
-			workerMenuView.error("That project does not exist! Returning to main menu");
+			workerMenuView.error("That project does not exist! Returning to worker menu");
 			return;
 		}
 
@@ -164,7 +162,7 @@ public class WorkerController {
 		Worker worker = workerDao.findById(id);
 		
 		if(worker == null) {
-			workerMenuView.error("That worker does not exist! Returning to main menu");
+			workerMenuView.error("That worker does not exist! Returning to worker menu");
 			return;
 		}
 		

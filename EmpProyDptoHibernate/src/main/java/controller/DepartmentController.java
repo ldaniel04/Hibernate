@@ -5,9 +5,7 @@ import java.util.List;
 import dao.DepartmentDao;
 import dao.WorkerDao;
 import exceptions.OurExceptions;
-import jakarta.persistence.EntityManager;
 import library.IO;
-import main.Main;
 import models.Department;
 import models.Worker;
 import view.DepartmentView;
@@ -37,10 +35,10 @@ public class DepartmentController {
 
 			case 1:
 				// Create / Add
-				add(Main.em);
+				add();
 				break;
 			case 2:
-				show(Main.em);
+				show();
 				break;
 			case 3:
 				update();
@@ -61,23 +59,21 @@ public class DepartmentController {
 		}
 	}
 
-	public void add(EntityManager em) {
+	public void add() {
 
 		Department department;
 		try {
 			department = departmentMenuView.create();
-			departmentDao.add(department, em);
+			departmentDao.add(department);
 		} catch (OurExceptions e) {
 			// TODO Auto-generated catch block
 			IO.println(e.getMessage());
 		}
 
-		
-
 	}
 
-	public void show(EntityManager em) {
-		List<Department> allDepartments = departmentDao.show(em);
+	public void show() {
+		List<Department> allDepartments = departmentDao.show();
 		departmentMenuView.show(allDepartments);
 	}
 
@@ -92,9 +88,9 @@ public class DepartmentController {
 		Integer id = departmentMenuView.findDepartmentById();
 
 		Department department = departmentDao.findById(id);
-		
-		if(department == null) {
-			departmentMenuView.error("That department does not exist! Returning to main menu");
+
+		if (department == null) {
+			departmentMenuView.error("That department does not exist! Returning to department menu");
 			return;
 		}
 
@@ -106,18 +102,28 @@ public class DepartmentController {
 
 	public void addBossToDepartment() {
 
-		Integer id = departmentMenuView.returnGenericIdToAddBoss("worker", false); //Search worker to be inserted as a boss
+		Integer id = departmentMenuView.returnGenericIdToAddBoss("worker", false); // Search worker to be inserted as a
+																					// boss
 
 		Worker worker = workerDao.findById(id);
-		
-		if(worker == null) {
-			departmentMenuView.error("That worker does not exist! Returning to main menu");
+
+		if (worker == null) {
+			departmentMenuView.error("That worker does not exist! Returning to department menu");
 			return;
 		}
-		Department department = departmentDao.findById(departmentMenuView.returnGenericIdToAddBoss("department", true)); //Search department in which boss is going to be inserted
-		
-		if(department == null) {
-			departmentMenuView.error("That department does not exist! Returning to main menu");
+		Department department = departmentDao.findById(departmentMenuView.returnGenericIdToAddBoss("department", true)); // Search
+																															// department
+																															// in
+																															// which
+																															// boss
+																															// is
+																															// going
+																															// to
+																															// be
+																															// inserted
+
+		if (department == null) {
+			departmentMenuView.error("That department does not exist! Returning to department menu");
 			return;
 		}
 		department = departmentMenuView.addBossToDepartment(department, worker); // Returns department with boss
@@ -125,25 +131,21 @@ public class DepartmentController {
 		departmentDao.update(department);
 
 	}
-	
+
 	public void deleteDepartment() {
-		
+
 		Integer id = departmentMenuView.returnGenericIdToDelete();
-		
+
 		Department department = departmentDao.findById(id);
-		
-		if(department == null) {
-			departmentMenuView.error("That department does not exist! Returning to main menu");
+
+		if (department == null) {
+			departmentMenuView.error("That department does not exist! Returning to department menu");
 			return;
 		}
-		
-		List<Worker> workers = workerDao.show(Main.em);
+
+		List<Worker> workers = workerDao.show();
 		departmentDao.delete(department, workers);
-		
-		
-		
-		
-		
+
 	}
 
 }

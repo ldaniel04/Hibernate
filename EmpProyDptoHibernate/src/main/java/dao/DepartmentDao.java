@@ -3,8 +3,6 @@ package dao;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import main.Main;
 import models.Department;
@@ -14,21 +12,21 @@ public class DepartmentDao {
 	private final Logger logger = Logger.getLogger(DepartmentDao.class.getName());
 	private static final String SELECT_ALL_DEPARTMENTS = "SELECT e FROM Department e";
 
-	public void add(Department department, EntityManager em) {
+	public void add(Department department) {
 		try {
-			em.getTransaction().begin();
-			em.persist(department);
-			em.getTransaction().commit();
+			Main.em.getTransaction().begin();
+			Main.em.persist(department);
+			Main.em.getTransaction().commit();
 		} catch (Exception e) {
-			if (em.getTransaction().isActive()) {
-				em.getTransaction().rollback();
+			if (Main.em.getTransaction().isActive()) {
+				Main.em.getTransaction().rollback();
 			}
 			System.out.println("Problema al crear el departamento.");
 		}
 	}
 
-	public List<Department> show(EntityManager em) {
-		TypedQuery<Department> query = em.createQuery(SELECT_ALL_DEPARTMENTS, Department.class);
+	public List<Department> show() {
+		TypedQuery<Department> query = Main.em.createQuery(SELECT_ALL_DEPARTMENTS, Department.class);
 		return query.getResultList();
 	}
 
@@ -45,6 +43,8 @@ public class DepartmentDao {
 		Main.em.getTransaction().commit();
 		return department;
 	}
+	
+	
 
 	public void update(Department department) {
 		Main.em.getTransaction().begin();

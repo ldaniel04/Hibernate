@@ -4,6 +4,7 @@ import java.util.List;
 
 import exceptions.OurExceptions;
 import library.IO;
+import main.Main;
 import models.Department;
 import models.Worker;
 
@@ -44,7 +45,7 @@ public class DepartmentView {
 		if (departments.isEmpty()) {
 			System.out.println("No Departments found.");
 		} else {
-			System.out.println("List of Departments:\nID:\tNAME:\tBOSS:");
+			System.out.println("List of Departments:\nID:\t\t\tNAME:\t\t\tBOSS:");
 			for (Department department : departments) {
 				System.out.println(department.toString());
 			}
@@ -56,6 +57,8 @@ public class DepartmentView {
 		Integer clave = IO.readInt();
 		return clave;
 	}
+	
+	
 
 	public void readDepartment(Department department) {
 		System.out.println(department);

@@ -2,8 +2,6 @@ package dao;
 
 import java.util.List;
 import java.util.logging.Logger;
-
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import main.Main;
 import models.Department;
@@ -13,17 +11,17 @@ public class WorkerDao {
 	private final Logger logger = Logger.getLogger(WorkerDao.class.getName());
 	private static final String SELECT_ALL_WORKERS = "SELECT e FROM Worker e";
 
-	public void add(Worker worker, EntityManager em) {
+	public void add(Worker worker) {
 		logger.info("add()");
-		em.getTransaction().begin();
-		em.persist(worker);
+		Main.em.getTransaction().begin();
+		Main.em.persist(worker);
 
-		em.getTransaction().commit();
+		Main.em.getTransaction().commit();
 
 	}
 
-	public List<Worker> show(EntityManager em) {
-		TypedQuery<Worker> query = em.createQuery(SELECT_ALL_WORKERS, Worker.class);
+	public List<Worker> show() {
+		TypedQuery<Worker> query = Main.em.createQuery(SELECT_ALL_WORKERS, Worker.class);
 		return query.getResultList();
 	}
 
