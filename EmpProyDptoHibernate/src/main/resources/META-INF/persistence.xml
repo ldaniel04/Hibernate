@@ -15,7 +15,7 @@
 				value="org.mariadb.jdbc.Driver" />
 			<property name="jakarta.persistence.jdbc.user" value="root" />
 			<property name="jakarta.persistence.jdbc.password"
-				value="toor" />
+				value="contraseña" />
 			<!-- inicialización de datos de la base de datos -->
 			<property
 				name="jakarta.persistence.schema-generation.database.action"

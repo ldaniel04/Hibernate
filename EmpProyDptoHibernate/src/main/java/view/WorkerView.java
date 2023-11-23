@@ -73,7 +73,6 @@ public class WorkerView {
 		IO.println("New salary: ");
 		salary = IO.readDouble();
 
-		// Worker can't change id!
 		worker.setName(name);
 		worker.setSalary(salary);
 
@@ -112,12 +111,19 @@ public class WorkerView {
 		return worker;
 
 	}
-	
+
+	/**
+	 * Metodo que recoje un projecto y un trabajador. Llama a un metodo de la clase
+	 * trabajador donde añadiran su trabajor y proyecto a sus respectivas
+	 * colecciones
+	 * 
+	 * @param project
+	 * @param worker
+	 * @return worker
+	 */
 	public Worker addToProject(Project project, Worker worker) {
-
-		project.addProjectToWorker(worker);
+		worker.addWorkerToProject(project);
 		return worker;
-
 	}
 
 	public Integer returnGenericIdToDelete() {

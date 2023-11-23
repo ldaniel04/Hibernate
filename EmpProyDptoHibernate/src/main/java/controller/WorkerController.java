@@ -137,7 +137,12 @@ public class WorkerController {
 		
 	}
 	
-	
+	/**
+	 * Asigna un proyecto existente a un trabajador existente.
+	 * Recupera un Trabajador por su ID y un Proyecto por su ID. 
+	 * Verifica la existencia del trabajador y del proyecto.
+	 * Y termina asociando mediante un update.
+	 */
 	public void addProjectToWorker() {
 	
 		Integer idWorker = workerMenuView.returnGenericIdForAdding("worker", false);

@@ -1,6 +1,7 @@
 package models;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -26,21 +27,37 @@ public class Project {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	@ManyToMany(mappedBy = "projects") // need mapping by??
-	private Set<Worker> workers; // Look warning
+	@Builder.Default
+	@ManyToMany(mappedBy = "projects")
+	private Set<Worker> workers = new HashSet<Worker>();;
 
-	public Set<Worker> getWorkers() {
-		return this.workers = new HashSet<Worker>();
-	}
-
+	/**
+	 * Asocia este proyecto con un trabajador específico. Agrega este proyecto a
+	 * la coleccion de trabajadores asociados a un proyecto dado y agrega ese
+	 * trabajador a la coleccion de proyectos asociados a este proyecto
+	 * 
+	 * @param project
+	 */
 	public void addProjectToWorker(Worker worker) {
 		this.getWorkers().add(worker);
 		worker.getProjects().add(this);
-
 	}
 	
 	@Override
 	public String toString(){
 		return id + "\t" + name;
 	}
+	
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return Objects.equals(id, project.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

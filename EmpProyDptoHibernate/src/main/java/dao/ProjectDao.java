@@ -31,17 +31,37 @@ public class ProjectDao {
 		return query.getResultList();
 	}
 
+	/**
+	 * Actualiza la información de un proyecto en la base de datos. Actualiza los
+	 * datos del proyecto proporcionado en la base de datos. Utiliza la operación
+	 * 'merge' para sincronizar el estado del proyecto con la base de datos y
+	 * 'persist' para hacer cambios permanentes.
+	 * 
+	 * @param project
+	 */
 	public void update(Project project) {
 		logger.info(SELECT_ALL_PROJECTS);
 
 		Main.em.getTransaction().begin();
 		Main.em.merge(project);
+		Main.em.persist(project);
 		Main.em.getTransaction().commit();
 	}
-	
+
+	/**
+	 * Elimina un proyecto de la base de datos. Elimina el proyecto proporcionado de
+	 * la base de datos y limpia las referencias en la tabla JOIN. Verifica si
+	 * el proyecto no es nulo antes de proceder con la eliminación.
+	 * 
+	 * @param project
+	 */
 	public void delete(Project project) {
 		Main.em.getTransaction().begin();
-		Main.em.remove(project);
+		if (project != null) {
+			project.getWorkers().forEach(worker -> worker.getProjects().remove(project));
+			project.getWorkers().clear();
+			Main.em.remove(project);
+		}
 		Main.em.getTransaction().commit();
 	}
 }

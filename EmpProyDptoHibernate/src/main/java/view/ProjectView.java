@@ -16,7 +16,7 @@ public class ProjectView {
 			3. Update a project
 			4. Delete a project
 			5. Show by ID
-			6. Add Project to a Worker
+			6. Add/Change Project to a Worker
 			-1. Back
 			""";
 
@@ -88,8 +88,17 @@ public class ProjectView {
 		return id;
 	}
 
+	/**
+	 * Metodo que recoje un projecto y un trabajador. Llama a un metodo de la clase
+	 * projecto donde añadiran su proyecto y trabajor a sus respectivas
+	 * colecciones
+	 * 
+	 * @param project
+	 * @param worker
+	 * @return
+	 */
 	public Project addWorkerTo(Project project, Worker worker) {
-		worker.addWorkerToProject(project);
+		project.addProjectToWorker(worker);
 		return project;
 
 	}

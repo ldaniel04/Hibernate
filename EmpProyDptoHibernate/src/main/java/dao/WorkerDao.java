@@ -25,11 +25,20 @@ public class WorkerDao {
 		return query.getResultList();
 	}
 
+	/**
+	 * Actualiza la información de un trabajador en la base de datos. Actualiza los
+	 * datos del trabajador proporcionado en la base de datos. Utiliza la operación
+	 * 'merge' para sincronizar el estado del trabajador con la base de datos y
+	 * 'persist' para hacer cambios permanentes.
+	 * 
+	 * @param worker
+	 */
 	public void update(Worker worker) {
 		logger.info(SELECT_ALL_WORKERS);
 
 		Main.em.getTransaction().begin();
 		Main.em.merge(worker);
+		Main.em.persist(worker);
 		Main.em.getTransaction().commit();
 
 	}

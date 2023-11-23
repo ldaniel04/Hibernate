@@ -84,7 +84,12 @@ public class ProjectController {
 
 	}
 
-	public void delete() {//ESTE NO BORRA PORQUE HAY QUE CONTROLAR LOS WORKERS
+	/**
+	 * Metodo que elimina un Proyecto. Recupera el proyecto por su ID, verifica su
+	 * existencia y lo elimina. Si el proyecto no existe, muestra un mensaje de
+	 * error.
+	 */
+	public void delete() {
 		Integer id = projectMenuView.returnGenericIdToDelete();
 		Project project = projectDao.findById(id);
 
@@ -102,7 +107,13 @@ public class ProjectController {
 		projectMenuView.readProject(project);
 	}
 
-	public void addWorkerToProject(){//ESTTE NO AÑADE 
+	/**
+	 * Asigna un proyecto existente a un trabajador existente.
+	 * Recupera un Proyecto por su ID y un Trabajador por su ID. 
+	 * Verifica la existencia del proyecto y del trabajador.
+	 * Y termina asociando mediante un update.
+	 */
+	public void addWorkerToProject() {
 
 		Integer idProject = projectMenuView.returnGenericIdForAdding("project", false);
 		Project project = projectDao.findById(idProject);
