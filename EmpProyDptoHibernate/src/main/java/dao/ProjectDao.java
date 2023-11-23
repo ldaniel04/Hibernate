@@ -10,12 +10,23 @@ public class ProjectDao {
 	private final Logger logger = Logger.getLogger(WorkerDao.class.getName());
 	private static final String SELECT_ALL_PROJECTS = "SELECT e FROM Project e";
 
+	/**
+	 * Adds a new project to the database.
+	 *
+	 * @param project the Project object to be added to the database.
+	 */
 	public void add(Project project) {
 		Main.em.getTransaction().begin();
 		Main.em.persist(project);
 		Main.em.getTransaction().commit();
 	}
 
+	/**
+	 * Retrieves and returns a Project from the database based on the provided key.
+	 *
+	 * @param key the unique identifier of the project to be retrieved.
+	 * @return a Project object representing the project with the specified key, or null if not found.
+	 */
 	public Project findById(Integer key) {
 		logger.info("findById()");
 
@@ -26,6 +37,11 @@ public class ProjectDao {
 
 	}
 
+	/**
+	 * Retrieves and returns a list of all projects from the database.
+	 *
+	 * @return a List of Project objects representing all projects in the database.
+	 */
 	public List<Project> show() {
 		TypedQuery<Project> query = Main.em.createQuery(SELECT_ALL_PROJECTS, Project.class);
 		return query.getResultList();

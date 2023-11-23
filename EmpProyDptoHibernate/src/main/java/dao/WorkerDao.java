@@ -11,6 +11,12 @@ public class WorkerDao {
 	private final Logger logger = Logger.getLogger(WorkerDao.class.getName());
 	private static final String SELECT_ALL_WORKERS = "SELECT e FROM Worker e";
 
+	/**
+	 * Adds a new worker to the database.
+	 *
+	 * @param worker the Worker object to be added to the database.
+	 */
+
 	public void add(Worker worker) {
 		logger.info("add()");
 		Main.em.getTransaction().begin();
@@ -20,6 +26,11 @@ public class WorkerDao {
 
 	}
 
+	/**
+	 * Retrieves and returns a list of all workers from the database.
+	 *
+	 * @return a List of Worker objects representing all workers in the database.
+	 */
 	public List<Worker> show() {
 		TypedQuery<Worker> query = Main.em.createQuery(SELECT_ALL_WORKERS, Worker.class);
 		return query.getResultList();
@@ -43,6 +54,12 @@ public class WorkerDao {
 
 	}
 
+	/**
+	 * Retrieves and returns a worker from the database based on the provided key.
+	 *
+	 * @param key the unique identifier of the worker to be retrieved.
+	 * @return a Worker object representing the worker with the specified key, or null if not found.
+	 */
 	public Worker findById(Integer key) {
 		logger.info("findById()");
 
@@ -53,6 +70,13 @@ public class WorkerDao {
 
 	}
 
+	/**
+	 * Deletes a worker from the database and updates associated department information if applicable.
+	 *
+	 * @param worker the Worker object to be deleted from the database.
+	 * @param department the associated Department object, used to update the boss reference if needed.
+	 * @return true if the worker is successfully deleted, false otherwise.
+	 */
 	public Boolean delete(Worker worker, Department department) {
 
 		Main.em.getTransaction().begin();
