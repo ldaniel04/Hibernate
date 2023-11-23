@@ -59,6 +59,9 @@ public class DepartmentController {
 		}
 	}
 
+	/**
+	 * Create a department and add it to the database
+	 */
 	public void add() {
 
 		Department department;
@@ -72,17 +75,26 @@ public class DepartmentController {
 
 	}
 
+	/**
+	 * Show all departments
+	 */
 	public void show() {
 		List<Department> allDepartments = departmentDao.show();
 		departmentMenuView.show(allDepartments);
 	}
 
+	/**
+	 * Find a department by id
+	 */
 	public void findById() {
 		Integer id = departmentMenuView.findDepartmentById();
 		Department department = departmentDao.findById(id);
 		departmentMenuView.readDepartment(department);
 	}
 
+	/**
+	 * Find and update a department
+	 */
 	public void update() {
 
 		Integer id = departmentMenuView.findDepartmentById();
@@ -100,6 +112,9 @@ public class DepartmentController {
 
 	}
 
+	/**
+	 * Add a boss to a department
+	 */
 	public void addBossToDepartment() {
 
 		Integer id = departmentMenuView.returnGenericIdToAddBoss("worker", false); // Search worker to be inserted as a
@@ -132,6 +147,9 @@ public class DepartmentController {
 
 	}
 
+	/**
+	 * Delete a department
+	 */
 	public void deleteDepartment() {
 
 		Integer id = departmentMenuView.returnGenericIdToDelete();

@@ -23,6 +23,11 @@ public class WorkerView {
 
 			""";
 
+	/**
+	 * Prompts the user with available options, reads and returns the selected option.
+	 *
+	 * @return an Integer representing the user-selected option.
+	 */
 	public Integer getOption() {
 		Integer option;
 
@@ -32,6 +37,12 @@ public class WorkerView {
 
 	}
 
+	/**
+	 * Creates and returns a new Worker based on user input.
+	 *
+	 * @return a Worker object created from user input.
+	 * @throws OurExceptions if the department name is empty.
+	 */
 	public Worker create() throws OurExceptions {
 
 		IO.print("Worker's Name: ");
@@ -49,6 +60,11 @@ public class WorkerView {
 
 	}
 
+	/**
+	 * Prompts the user to enter a worker's ID and returns the entered value.
+	 *
+	 * @return an Integer representing the worker's ID entered by the user.
+	 */
 	public Integer findWorkerById() {
 		IO.print("Worker's ID: ");
 		Integer clave = IO.readInt();
@@ -56,11 +72,22 @@ public class WorkerView {
 		return clave;
 	}
 
+	/**
+	 * Displays the details of a worker.
+	 *
+	 * @param worker the Worker object whose details will be displayed.
+	 */
 	public void readWorker(Worker worker) {
 		System.out.println(worker);
 
 	}
 
+	/**
+	 * Updates the details of a worker based on user input and returns the updated department.
+	 *
+	 * @param department the Worker object to be updated.
+	 * @return the updated Worker object.
+	 */
 	public Worker updateWorker(Worker worker) {
 		String name;
 		Double salary;
@@ -79,6 +106,11 @@ public class WorkerView {
 		return worker;
 	}
 
+	/**
+	 * Displays a list of workers with their details.
+	 *
+	 * @param departments the List of Worker objects to be displayed.
+	 */
 	public void show(List<Worker> workers) {
 		if (workers.isEmpty()) {
 			System.out.println("No workers found.");
@@ -90,6 +122,13 @@ public class WorkerView {
 		}
 	}
 
+	/**
+	 * Prompts the user to enter an ID for searching and adding a boss to or inserting into a worker.
+	 *
+	 * @param objectSearch a String representing the type of object to be searched 
+	 * @param add a boolean indicating whether the operation is for adding a boss or inserting into a worker.
+	 * @return an Integer representing the entered ID.
+	 */
 	public Integer returnGenericIdForAdding(String objectSearch, boolean add) {
 		Integer id;
 
@@ -104,6 +143,13 @@ public class WorkerView {
 		return id;
 	}
 
+	/**
+	 * Adds a worker as a employee to a department and returns the updated worker.
+	 *
+	 * @param department the Department object to which the boss is added.
+	 * @param worker the Worker object to be added as a boss.
+	 * @return the updated Worker object.
+	 */
 	public Worker addToDepartment(Department department, Worker worker) {
 
 		department.addDepart(worker);
@@ -126,6 +172,11 @@ public class WorkerView {
 		return worker;
 	}
 
+	/**
+	 * Prompts the user to enter an ID for selecting a worker to delete.
+	 *
+	 * @return an Integer representing the entered worker ID to delete.
+	 */
 	public Integer returnGenericIdToDelete() {
 		Integer id;
 		IO.println("Select Worker's ID to delete: ");
@@ -133,6 +184,11 @@ public class WorkerView {
 		return id;
 	}
 
+	/**
+	 * Displays an error message.
+	 *
+	 * @param error a String representing the error message to be displayed.
+	 */
 	public void error(String error) {
 		IO.println(error);
 	}

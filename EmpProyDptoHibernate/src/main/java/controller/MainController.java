@@ -32,7 +32,7 @@ public class MainController {
 			case -1:
 				break;
 			default:
-				//return a string???
+				System.out.println("No valid option");
 			
 			
 			}

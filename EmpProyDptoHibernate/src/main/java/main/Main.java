@@ -10,7 +10,6 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		// Need to create interface CRUD as pro has in his hibernate's project??????
 		new MainController();
 	}
 

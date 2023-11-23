@@ -70,6 +70,9 @@ public class WorkerController {
 
 	}
 
+	/**
+	 * Create a worker and add it to the database
+	 */
 	public void add() {
 
 		Worker worker;
@@ -86,17 +89,26 @@ public class WorkerController {
 
 	}
 
+	/**
+	 * Show all workers
+	 */
 	public void show() {
 		List<Worker> allWorkers = workerDao.show();
 		workerMenuView.show(allWorkers);
 	}
 
+	/**
+	 * Find a department by id
+	 */
 	public void findById() {
 		Integer id = workerMenuView.findWorkerById();
 		Worker worker = workerDao.findById(id);
 		workerMenuView.readWorker(worker);
 	}
 
+	/**
+	 * Find and update a department
+	 */
 	public void update() {
 		
 		Integer id = workerMenuView.findWorkerById();
@@ -115,6 +127,9 @@ public class WorkerController {
 		
 	}
 	
+	/**
+	 * Add a department to a worker
+	 */
 	public void addDepartmentToWorker() {
 		
 		Integer id = workerMenuView.returnGenericIdForAdding("worker", false);
@@ -162,6 +177,9 @@ public class WorkerController {
 		workerDao.update(worker);
 	}
 	
+	/**
+	 * Delete a worker
+	 */
 	public void deleteWorker() {
 		Integer id = workerMenuView.returnGenericIdToDelete();
 		Worker worker = workerDao.findById(id);

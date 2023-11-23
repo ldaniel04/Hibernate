@@ -60,6 +60,9 @@ public class ProjectController {
 		}
 	}
 
+	/**
+	 * Create a project and add it to the database
+	 */
 	public void add() {
 		Project project;
 		try {
@@ -71,11 +74,17 @@ public class ProjectController {
 		}
 	}
 
+	/**
+	 * Show all projects
+	 */
 	public void show() {
 		List<Project> allProjects = projectDao.show();
 		projectMenuView.show(allProjects);
 	}
 
+	/**
+	 * Find and update a project
+	 */
 	public void update() {
 		Integer id = projectMenuView.findProjectById();
 		Project project = projectDao.findById(id);
@@ -101,6 +110,9 @@ public class ProjectController {
 		projectDao.delete(project);
 	}
 
+	/**
+	 * Find a project by id
+	 */
 	public void findById() {
 		Integer id = projectMenuView.findProjectById();
 		Project project = projectDao.findById(id);
