@@ -3,56 +3,34 @@ package main;
 import controller.MainController;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
-import library.IO;
-import models.Worker;
-
+/**
+ * 
+ * @author Jose Antonio Fernandez-Montes Garcia, Jorge Balmisa Rosillo, Luis Daniel Cedeño Murillo 
+ * 
+ */
 public class Main {
-	
-	public static EntityManager em = Persistence.createEntityManagerFactory("unidad-persistencia").createEntityManager();
+
+	public static EntityManager em = open();
 
 	public static void main(String[] args) {
-	
-		Persistence.generateSchema("unidad-persistencia", null);
-		
-		em = Persistence.createEntityManagerFactory("unidad-persistencia").createEntityManager();
-		//Need to create interface CRUD as pro has in his hibernate's project??????
+
 		new MainController();
-		
-		
+		close();
+	}
+
+	private static EntityManager open() {
+		Persistence.generateSchema("unidad-persistencia", null);
+
+		if (em == null) {
+			em = Persistence.createEntityManagerFactory("unidad-persistencia").createEntityManager();
+		}
+
+		return em;
 	}
 	
-	
-	
-//	public static void add() {
-//		em.getTransaction().begin();;
-//		String name;
-//		Double salary;
-//		Worker worker;
-//		Worker workerRecover;
-//		
-//		System.out.println("Name?: ");
-//		name = IO.readString();
-//		System.out.println("Salary? :");
-//		salary = IO.readDouble();
-//		
-//		
-//		worker = Worker.builder().name(name).salary(salary).build();
-//		
-//		System.out.println(worker.getName());
-//		
-//		em.persist(worker);
-//		
-//		
-//		
-//		workerRecover = em.find(Worker.class, 1);
-//		
-//		System.out.println(workerRecover.getId() + " " + workerRecover.getName() + " " + workerRecover.getSalary());
-//		
-//		em.getTransaction().commit();
-//		
-//		
-//		
-//		
-//	}
-
+	private static void close() {
+		if (em.isOpen()) {
+			em.close();
+		}
+	}
 }

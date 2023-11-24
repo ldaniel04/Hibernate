@@ -1,5 +1,6 @@
 package models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,13 +23,26 @@ public class Department {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(nullable = false)
 	private String name;
-	@ManyToOne //(mappedBy = "depart")
+	@ManyToOne
 	private Worker boss;
 	
 	public void addDepart(Worker worker) {
 		
 		worker.setDepart(this);
+	}
+	
+	@Override
+	public String toString(){
+		String print;
+		
+		if(boss == null) {
+			print = id + "\t\t" + name + "\t\t" + "Without Boss!";
+		}else {
+			print = id + "\t\t" + name + "\t\t" + boss.getName();
+		}
+		return print;
 	}
 	
 }
