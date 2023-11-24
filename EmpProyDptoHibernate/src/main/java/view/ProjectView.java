@@ -141,7 +141,7 @@ public class ProjectView {
 		return project;
 
 	}
-	
+
 	/**
 	 * Displays an error message.
 	 *

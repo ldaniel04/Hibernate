@@ -1,14 +1,13 @@
 package dao;
 
 import java.util.List;
-import java.util.logging.Logger;
+
 import jakarta.persistence.TypedQuery;
 import main.Main;
 import models.Department;
 import models.Worker;
 
 public class WorkerDao {
-	private final Logger logger = Logger.getLogger(WorkerDao.class.getName());
 	private static final String SELECT_ALL_WORKERS = "SELECT e FROM Worker e";
 
 	/**
@@ -18,10 +17,9 @@ public class WorkerDao {
 	 */
 
 	public void add(Worker worker) {
-		logger.info("add()");
+
 		Main.em.getTransaction().begin();
 		Main.em.persist(worker);
-
 		Main.em.getTransaction().commit();
 
 	}
@@ -45,8 +43,7 @@ public class WorkerDao {
 	 * @param worker
 	 */
 	public void update(Worker worker) {
-		logger.info(SELECT_ALL_WORKERS);
-
+		
 		Main.em.getTransaction().begin();
 		Main.em.merge(worker);
 		Main.em.persist(worker);
@@ -61,7 +58,6 @@ public class WorkerDao {
 	 * @return a Worker object representing the worker with the specified key, or null if not found.
 	 */
 	public Worker findById(Integer key) {
-		logger.info("findById()");
 
 		Main.em.getTransaction().begin();
 		Worker worker = Main.em.find(Worker.class, key);
@@ -75,9 +71,8 @@ public class WorkerDao {
 	 *
 	 * @param worker the Worker object to be deleted from the database.
 	 * @param department the associated Department object, used to update the boss reference if needed.
-	 * @return true if the worker is successfully deleted, false otherwise.
 	 */
-	public Boolean delete(Worker worker, Department department) {
+	public void delete(Worker worker, Department department) {
 
 		Main.em.getTransaction().begin();
 
@@ -85,14 +80,9 @@ public class WorkerDao {
 				&& department.getBoss().getId() == worker.getId()) {
 			department.setBoss(null);
 			Main.em.remove(worker);
-		} else {
-			Main.em.remove(worker);
 		}
+		Main.em.remove(worker);
 
 		Main.em.getTransaction().commit();
-
-		return null; // Need create inWorkerVier something that reads this or change this return to a
-						// void
 	}
-
 }

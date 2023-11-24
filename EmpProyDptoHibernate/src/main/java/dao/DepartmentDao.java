@@ -1,14 +1,13 @@
 package dao;
 
 import java.util.List;
-import java.util.logging.Logger;
+
 import jakarta.persistence.TypedQuery;
 import main.Main;
 import models.Department;
 import models.Worker;
 
 public class DepartmentDao {
-	private final Logger logger = Logger.getLogger(DepartmentDao.class.getName());
 	private static final String SELECT_ALL_DEPARTMENTS = "SELECT e FROM Department e";
 
 	/**
@@ -48,7 +47,6 @@ public class DepartmentDao {
 	 * @return a Department object representing the department with the specified key, or null if not found.
 	 */
 	public Department findById(Integer key) {
-		logger.info("findById()");
 		
 		Main.em.getTransaction().begin();
 		Department department = Main.em.find(Department.class, key);

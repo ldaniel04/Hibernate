@@ -1,13 +1,12 @@
 package dao;
 
 import java.util.List;
-import java.util.logging.Logger;
+
 import jakarta.persistence.TypedQuery;
 import main.Main;
 import models.Project;
 
 public class ProjectDao {
-	private final Logger logger = Logger.getLogger(WorkerDao.class.getName());
 	private static final String SELECT_ALL_PROJECTS = "SELECT e FROM Project e";
 
 	/**
@@ -28,7 +27,6 @@ public class ProjectDao {
 	 * @return a Project object representing the project with the specified key, or null if not found.
 	 */
 	public Project findById(Integer key) {
-		logger.info("findById()");
 
 		Main.em.getTransaction().begin();
 		Project project = Main.em.find(Project.class, key);
@@ -56,7 +54,6 @@ public class ProjectDao {
 	 * @param project
 	 */
 	public void update(Project project) {
-		logger.info(SELECT_ALL_PROJECTS);
 
 		Main.em.getTransaction().begin();
 		Main.em.merge(project);
@@ -72,6 +69,7 @@ public class ProjectDao {
 	 * @param project
 	 */
 	public void delete(Project project) {
+		
 		Main.em.getTransaction().begin();
 		if (project != null) {
 			project.getWorkers().forEach(worker -> worker.getProjects().remove(project));

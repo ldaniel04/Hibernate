@@ -25,7 +25,7 @@ public class Department {
 	private int id;
 	@Column(nullable = false)
 	private String name;
-	@ManyToOne //(mappedBy = "depart")
+	@ManyToOne
 	private Worker boss;
 	
 	public void addDepart(Worker worker) {
@@ -38,9 +38,9 @@ public class Department {
 		String print;
 		
 		if(boss == null) {
-			print = id + "\t\t\t" + name + "\t\t\t" + "Without Boss!";
+			print = id + "\t\t" + name + "\t\t" + "Without Boss!";
 		}else {
-			print = id + "\t\t\t" + name + "\t\t\t" + boss.getName();
+			print = id + "\t\t" + name + "\t\t" + boss.getName();
 		}
 		return print;
 	}

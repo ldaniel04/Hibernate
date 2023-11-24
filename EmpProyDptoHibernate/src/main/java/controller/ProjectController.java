@@ -34,7 +34,6 @@ public class ProjectController {
 			switch (option) {
 
 			case 1:
-				// Create / Add
 				add();
 				break;
 			case 2:

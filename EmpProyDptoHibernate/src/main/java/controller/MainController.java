@@ -4,23 +4,22 @@ import jakarta.persistence.EntityManager;
 import view.MainView;
 
 public class MainController {
-	
+
 	static EntityManager em = null;
-	
+
 	public MainController() {
-		
+
 		Integer option = 0;
 		DepartmentController departmentController = new DepartmentController();
 		WorkerController workerController = new WorkerController();
 		ProjectController projectController = new ProjectController();
-		
-		
-		while(option != -1) {
-			
+
+		while (option != -1) {
+
 			option = MainView.getOptionMainMenu();
-			
-			switch(option) {
-			
+
+			switch (option) {
+
 			case 1:
 				workerController.menu();
 				break;
@@ -33,16 +32,8 @@ public class MainController {
 				break;
 			default:
 				System.out.println("No valid option");
-			
-			
+
 			}
-			
-			
-			
 		}
 	}
-	
-	
-	
-
 }

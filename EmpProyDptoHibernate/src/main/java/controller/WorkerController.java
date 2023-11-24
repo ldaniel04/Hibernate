@@ -16,7 +16,7 @@ public class WorkerController {
 
 	private final WorkerView workerMenuView;
 	private final WorkerDao workerDao;
-	private final DepartmentDao departmentDao;  //To add worker to department (need to find departents)
+	private final DepartmentDao departmentDao;
 	private final ProjectDao projectDao;
 
 	public WorkerController() {
@@ -38,7 +38,6 @@ public class WorkerController {
 			switch (option) {
 
 			case 1:
-				// Create / Add
 				add();
 				break;
 			case 2:
@@ -146,7 +145,7 @@ public class WorkerController {
 			return;
 		}
 		
-		worker = workerMenuView.addToDepartment(department, worker); //Returns worker with department
+		worker = workerMenuView.addToDepartment(department, worker); 
 		
 		workerDao.update(worker);
 		

@@ -44,7 +44,7 @@ public class Project {
 		this.getWorkers().add(worker);
 		worker.getProjects().add(this);
 	}
-	
+
 	@Override
 	public String toString(){
 		return id + "\t" + name;

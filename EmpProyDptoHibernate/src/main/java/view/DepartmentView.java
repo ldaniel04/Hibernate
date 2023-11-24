@@ -57,7 +57,7 @@ public class DepartmentView {
 		if (departments.isEmpty()) {
 			System.out.println("No Departments found.");
 		} else {
-			System.out.println("List of Departments:\nID:\t\t\tNAME:\t\t\tBOSS:");
+			System.out.println("List of Departments:\nID:\t\tNAME:\t\tBOSS:");
 			for (Department department : departments) {
 				System.out.println(department.toString());
 			}

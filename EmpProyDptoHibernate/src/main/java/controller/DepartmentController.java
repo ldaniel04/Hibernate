@@ -34,7 +34,6 @@ public class DepartmentController {
 			switch (option) {
 
 			case 1:
-				// Create / Add
 				add();
 				break;
 			case 2:
@@ -117,8 +116,7 @@ public class DepartmentController {
 	 */
 	public void addBossToDepartment() {
 
-		Integer id = departmentMenuView.returnGenericIdToAddBoss("worker", false); // Search worker to be inserted as a
-																					// boss
+		Integer id = departmentMenuView.returnGenericIdToAddBoss("worker", false); 
 
 		Worker worker = workerDao.findById(id);
 
@@ -126,22 +124,13 @@ public class DepartmentController {
 			departmentMenuView.error("That worker does not exist! Returning to department menu");
 			return;
 		}
-		Department department = departmentDao.findById(departmentMenuView.returnGenericIdToAddBoss("department", true)); // Search
-																															// department
-																															// in
-																															// which
-																															// boss
-																															// is
-																															// going
-																															// to
-																															// be
-																															// inserted
+		Department department = departmentDao.findById(departmentMenuView.returnGenericIdToAddBoss("department", true));
 
 		if (department == null) {
 			departmentMenuView.error("That department does not exist! Returning to department menu");
 			return;
 		}
-		department = departmentMenuView.addBossToDepartment(department, worker); // Returns department with boss
+		department = departmentMenuView.addBossToDepartment(department, worker);
 
 		departmentDao.update(department);
 
@@ -163,7 +152,5 @@ public class DepartmentController {
 
 		List<Worker> workers = workerDao.show();
 		departmentDao.delete(department, workers);
-
 	}
-
 }

@@ -3,7 +3,11 @@ package main;
 import controller.MainController;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
-
+/**
+ * 
+ * @author Jose Antonio Fernandez-Montes Garcia, Jorge Balmisa Rosillo, Luis Daniel Cedeño Murillo 
+ * 
+ */
 public class Main {
 
 	public static EntityManager em = open();
@@ -11,9 +15,10 @@ public class Main {
 	public static void main(String[] args) {
 
 		new MainController();
+		close();
 	}
 
-	public static EntityManager open() {
+	private static EntityManager open() {
 		Persistence.generateSchema("unidad-persistencia", null);
 
 		if (em == null) {
@@ -21,5 +26,11 @@ public class Main {
 		}
 
 		return em;
+	}
+	
+	private static void close() {
+		if (em.isOpen()) {
+			em.close();
+		}
 	}
 }
